@@ -1,4 +1,27 @@
+import { useEffect, useState } from "react";
+import useShop from "../ShopContext";
+
 const Product = ({product}) => {
+    const {addToCart, removeFromCart, products} = useShop()
+    const [isInCart, setIsInCart ] = useState(false);
+    useEffect(() => {
+        const isCart = products.filter((p) => p.id == product.id);
+        if(isCart.length > 0){
+            setIsInCart(true);
+        }
+        else{
+            setIsInCart(false);
+        }
+        console.log(isCart)
+    },[products]);
+    const handleAddToCart = () => {
+        if(isInCart){
+            removeFromCart(product)
+        }
+        else{
+            addToCart(product);
+        }
+    }
     return(
         <div className="card"
         style={{
@@ -11,7 +34,10 @@ const Product = ({product}) => {
                 <span>{product.name}</span>
                 <span>${product.price}</span>
             </div>
-            <button className="btn btn-primary">+</button>
+            <button className={`btn ${isInCart? 'btn-secondary' : 'btn-primary'}`}
+            onClick={handleAddToCart}>
+                {isInCart ? '-' : '+'}
+            </button>            
         </div>
     );
 };

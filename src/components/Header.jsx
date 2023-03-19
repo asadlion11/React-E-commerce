@@ -1,6 +1,8 @@
 import '../style.css'
 import {Link} from 'react-router-dom';
-const Header = ({cart, setCart}) => {
+import useShop from '../ShopContext';
+const Header = () => {
+    const {products} = useShop()
     return (
         <div className='menu'>
             <Link to = '/' className='logo'>iibso Online Market</Link>
@@ -8,10 +10,9 @@ const Header = ({cart, setCart}) => {
                 <Link to = '/'>Home</Link>
                 <Link to = '/about'>About</Link>
                 <Link to ='/contact'>Contact</Link>
-                <Link to = '/contact'>Contact</Link>
                 <Link to ='/cart'>Cart</Link>
             </div>
-            <Link to = '/cart'><span className='cart'>{cart}</span></Link>
+            <Link to = '/cart'><span className='cart'>{products.length}</span></Link>
         </div>
     );
 };

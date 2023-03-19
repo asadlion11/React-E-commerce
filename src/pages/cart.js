@@ -1,7 +1,14 @@
-const Cart = ({setCart}) => {
-    setCart(4);
+import CartProducts from "../components/CartProducts";
+import Payment from "../components/Payment";
+import useShop from "../ShopContext";
+const Cart = () => {
+    const {products} = useShop()
+    if(products.length <=0) return <h1>Cart is Empty</h1>
     return (
-        <h1>This is the Cart page</h1>
+        <div className="cart-container">
+            < CartProducts />
+            <Payment />
+        </div>
     );
 };
 export default Cart;
